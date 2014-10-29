@@ -1,31 +1,33 @@
 $(document).ready(function() {
     /* Search providers list */
     regexSearchProviders = [
-        "Google",
+        "DuckDuckGo",
         "YouTube",
-        "Wikipedia"
+        "Wikipedia",
+	"Google"
     ];
 
     regexSearchPatterns = [
-        "!g",   // Google
+        "!ddg",   // DuckDuckGo
         "!yt",  // YouTube
-        "!w"    // Wikipedia
+        "!w",    // Wikipedia
+	"!sp"	// Google
     ];
 
     currentprovider = "shit";
 
     // Initialize
-    changeProvider("Google");
+    changeProvider("DuckDuckGo");
 
     // Build regex string
     var i = 0;
     while (i < regexSearchPatterns.length) {
         if (i == 0)
             regexString = "(" + regexSearchPatterns[i] + ")";
-        
+
         if (i > 0)
             regexString = regexString.concat("|(" + regexSearchPatterns[i] + ")");
-        
+
         i += 1;
     }
 
@@ -40,15 +42,15 @@ $(document).ready(function() {
                 while (i < regexSearchPatterns.length) {
                     if (keyword[0] == regexSearchPatterns[i])
                         changeProvider(regexSearchProviders[i]);
-                    
+
                     i += 1;
                 }
             }
         } else {
-            changeProvider("Google");
+            changeProvider("DuckDuckGo");
         }
     });
-    
+
     // On submit form
     $("#searchForm").submit(function(e) {
         e.preventDefault();
@@ -61,26 +63,26 @@ $(document).ready(function() {
         } else {
             newstring = str;
         }
-        
+
         $("#searchSubmit").attr("value", newstring);
         $("#searchForm")[0].submit();
     });
-    
+
 });
 
 function changeProvider(newprovider) {
     if (newprovider != currentprovider) {
         currentprovider = newprovider;
-        
-        $("#searchIcon").fadeOut(450, function() {
+
+        $("#searchIcon").fadeOut(250, function() {
             $("#searchIcon").attr("src", "images/" + currentprovider + ".ico");
-            $("#searchIcon").fadeIn(450);
+            $("#searchIcon").fadeIn(250);
         });
-    
+
         /* Providers */
         switch(currentprovider) {
-            case "Google":
-                $("#searchForm").attr("action", "http://google.com/search");
+            case "DuckDuckGo":
+                $("#searchForm").attr("action", "https://duckduckgo.com");
                 $("#searchSubmit").attr("name", "q");
                 break;
             case "YouTube":
@@ -90,6 +92,10 @@ function changeProvider(newprovider) {
             case "Wikipedia":
                 $("#searchForm").attr("action", "http://en.wikipedia.org/w/index.php");
                 $("#searchSubmit").attr("name", "search");
+                break;
+            case "Google":
+                $("#searchForm").attr("action", "https://startpage.com/do/metasearch.pl");
+                $("#searchSubmit").attr("name", "query");
                 break;
         }
     }
