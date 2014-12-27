@@ -4,14 +4,16 @@ $(document).ready(function() {
         "DuckDuckGo",
         "YouTube",
         "Wikipedia",
-	"Google"
+	      "startpage",
+        "google"
     ];
 
     regexSearchPatterns = [
         "!ddg",   // DuckDuckGo
-        "!yt",  // YouTube
-        "!w",    // Wikipedia
-	"!sp"	// Google
+        "!yt",    // YouTube
+        "!w",     // Wikipedia
+	      "!sp",	  // startpage
+        "!g"      //google
     ];
 
     currentprovider = "shit";
@@ -93,9 +95,13 @@ function changeProvider(newprovider) {
                 $("#searchForm").attr("action", "http://en.wikipedia.org/w/index.php");
                 $("#searchSubmit").attr("name", "search");
                 break;
-            case "Google":
+            case "startpage":
                 $("#searchForm").attr("action", "https://startpage.com/do/metasearch.pl");
                 $("#searchSubmit").attr("name", "query");
+                break;
+            case "google":
+                $("#searchForm").attr("action", "https://encrypted.google.com/search");
+                $("#searchSubmit").attr("name", "q");
                 break;
         }
     }
