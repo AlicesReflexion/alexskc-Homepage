@@ -5,18 +5,22 @@ $(document).ready(function() {
         "YouTube",
         "Wikipedia",
 	      "startpage",
-        "google"
+        "google",
+        "jisho",
+        "goo"
     ];
 
     regexSearchPatterns = [
-        "!ddg",   // DuckDuckGo
-        "!yt",    // YouTube
-        "!w",     // Wikipedia
-	      "!sp",	  // startpage
-        "!g"      //google
+        "!ddg ",   // DuckDuckGo
+        "!yt ",    // YouTube
+        "!w ",     // Wikipedia
+	      "!sp ",	  // startpage
+        "!g ",     //google
+        "!jisho ",    //J-E dictionairy
+        "!gooj "     //J-J dictionairy
     ];
 
-    currentprovider = "shit";
+    currentprovider = "lol";
 
     // Initialize
     changeProvider("DuckDuckGo");
@@ -60,7 +64,7 @@ $(document).ready(function() {
         var str = $("#searchInput").val();
         var regexPattern = new RegExp(regexString, "g");
 
-        if (regexPattern.test(str)) {
+        if (regexPattern.test(str) && keyword[0] != "!jisho " && keyword[0] != "!gooj ") {
             newstring = str.replace(regexPattern, "");
         } else {
             newstring = str;
@@ -103,6 +107,14 @@ function changeProvider(newprovider) {
                 $("#searchForm").attr("action", "https://encrypted.google.com/search");
                 $("#searchSubmit").attr("name", "q");
                 break;
+            case "jisho":
+                $("#searchForm").attr("action", "https://duckduckgo.com");
+                $("#searchSubmit").attr("name", "q");
+                break;
+            case "goo":
+                $("#searchForm").attr("action", "https://duckduckgo.com");
+                $("#searchSubmit").attr("name", "q");
+
         }
     }
 }
